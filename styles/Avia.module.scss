@@ -1,0 +1,21 @@
+.form {
+	border-radius: 15px;
+	box-shadow: 0px 0px 14px rgba(112, 121, 153, 0.3);
+	background: #FFFFFF;
+	color: #FFFFFF;
+	margin-top: 68px;
+	overflow: hidden;
+	&__bottom {
+		padding: 23px;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.row {
+		background-color: #5C87DB;
+		display: flex;
+		padding: 17px 30px 30px 30px;
+		justify-content: space-between;
+	}
+
+}
