@@ -7,6 +7,7 @@ interface BtnProps {
 	type?: "button" | "submit" | "reset";
 	disabled?: boolean;
 }
+
 const ButtonStyled = styled(MUIButton)({
 	height: '40px',
   backgroundColor: '#5C87DB',
@@ -26,8 +27,8 @@ const ButtonStyled = styled(MUIButton)({
 		backgroundColor: '#B7BAC1',
 		color: '#FFFFFF',
 	}
-
 });
+
 export const Button = (props: BtnProps) => {
 	const {children, type, disabled} = props;
 	return <ButtonStyled type={type} disabled={disabled}>{children}</ButtonStyled>

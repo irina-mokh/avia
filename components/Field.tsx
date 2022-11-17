@@ -1,5 +1,5 @@
-import { OutlinedInput, InputLabel, InputAdornment, SvgIcon} from '@mui/material'; 
 import { useFormContext } from 'react-hook-form';
+import { OutlinedInput, InputLabel, InputAdornment, SvgIcon} from '@mui/material'; 
 import { CalendarIcon } from './CalendarIcon';
 
 interface FieldProps {
@@ -37,7 +37,8 @@ export const Field = (props: FieldProps) => {
 					borderBottom: '1px dashed #FFFFFF',
 					zIndex: 2,
 				}
-			}}>
+			}}
+		>
 			{label}
 			<OutlinedInput
 				className="input"
@@ -81,8 +82,6 @@ export const Field = (props: FieldProps) => {
 							color: '#E0E1E3',
 						}
 					},
-					
-					
 				}}
 				id={name}
 				{...register(name, {
@@ -98,7 +97,8 @@ export const Field = (props: FieldProps) => {
 									sx={{ width: 16, height: 16}} /> 
 								: null
 							}
-					</InputAdornment>}
+					</InputAdornment>
+				}
 			/>	
 		</InputLabel>
 	);

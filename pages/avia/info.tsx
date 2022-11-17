@@ -1,11 +1,13 @@
 import { GetServerSidePropsContext } from 'next';
+import { useState } from 'react';
 import { FormProps } from '.';
-import { Ticket } from '../../components/Ticket';
 import { Typography, Card, Container, Box } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import { useState } from 'react';
+
+import { Ticket } from '../../components/Ticket';
 
 export interface TicketDetails {
+	id: string;
 	start: string;
 	duration: string;
 	price: number;
@@ -13,18 +15,21 @@ export interface TicketDetails {
 }
 const FLIGHTS1 = [
 	{
+		id: '001',
 		start: '9:20',
 		duration: '1-55',
 		price: 4150,
 		return: false,
 	},
 	{
+		id: '002',
 		start: '10:20',
 		duration: '1-55',
-		price: 5150,
+		price: 5880,
 		return: true,
 	},
 	{
+		id: '003',
 		start: '11:20',
 		duration: '1-55',
 		price: 3850,
@@ -34,22 +39,25 @@ const FLIGHTS1 = [
 
 const FLIGHTS2 = [
 	{
+		id: '004',
 		start: '22:57',
 		duration: '1-55',
 		price: 4150,
 		return: false,
 	},
 	{
+		id: '005',
 		start: '18:20',
 		duration: '1-55',
 		price: 5150,
-		return: true,
+		return: false,
 	},
 	{
+		id: '006',
 		start: '16:20',
 		duration: '1-55',
-		price: 3850,
-		return: false,
+		price: 6150,
+		return: true,
 	},
 ];
 
@@ -63,17 +71,19 @@ export default function Info(props: FormProps) {
 		<Container sx={{paddingTop: '68px'}}>
 			<Typography variant='h2' sx={visuallyHidden}>Flights info</Typography>
 			<Card sx={{
+				display: 'flex',
 				boxShadow: '0px 0px 14px rgba(112, 121, 153, 0.3)',
 				borderRadius: '15px',
-				display: 'flex',
+				fontFamily: 'Roboto',
 			}}>
 				<Box flexGrow={1}>
-					<Ticket {...props} flights={FLIGHTS1} index={thereIndex} />
+					<Ticket {...props} flights={FLIGHTS1} index={thereIndex} handleChange={setThereIndex}/>
 					{/* back ticket */}
-					{end && <Ticket from={to} to={from} start={end} flights={FLIGHTS2} index={thereIndex}/>}
+					{end && <Ticket from={to} to={from} start={end} flights={FLIGHTS2} index={backIndex} handleChange={setBackIndex} back={true} />}
 				</Box>
 				{/* Price */}
-				<Box sx={{
+				<Typography
+					sx={{
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
@@ -92,8 +102,9 @@ export default function Info(props: FormProps) {
 						backgroundColor: '#DDE3EE',
 					}
 				}}>
-					{FLIGHTS1[thereIndex].price + (end ? FLIGHTS2[backIndex].price : 0) + ' ₽'}
-				</Box>
+					{FLIGHTS1[thereIndex].price + (end ? FLIGHTS2[backIndex].price : 0)}
+					<span style={{paddingLeft: '5px'}}>&#8381;</span>
+				</Typography>
 			</Card>
 		</Container>
 	)
