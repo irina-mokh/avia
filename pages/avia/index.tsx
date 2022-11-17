@@ -3,12 +3,13 @@ import { Button } from '../../components/Button';
 import { Field } from '../../components/Field';
 import styles from '../../styles/Avia.module.scss';
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import Link from 'next/link';
 
-interface FormData {
+export interface FormProps{
   from: string;
   to: string;
   start: string;
-  end: string;
+  end?: string;
 }
 
 const INITIAL_SET = {
@@ -20,15 +21,15 @@ const INITIAL_SET = {
 
 export default function Avia( ) {
 	const methods = useForm({defaultValues:{...INITIAL_SET}});
-	const { handleSubmit, formState: {isValid} } = methods;
-	const onSubmit: SubmitHandler<FormData> = async (data) => {
+	const { handleSubmit, watch, formState: {isValid} } = methods;
+	const onSubmit: SubmitHandler<FormProps> = async (data) => {
     console.log(data);
   };
 
 	return (
 		<Container>
 			<FormProvider {...methods}>
-				<form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={()=> console.log(isValid)}>
+				<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 					<div className={styles.row}>
 						<Field
 							type="text"
@@ -50,7 +51,12 @@ export default function Avia( ) {
 							name="end" />
 					</div>
 					<div className={styles.form__bottom}>
+					<Link href={{
+              pathname: '/avia/info',
+              query: {...watch()},
+            }}>
 						<Button type="submit" disabled={!isValid}>Найти билеты</Button>
+					</Link>
 					</div>
 				</form>
 			</FormProvider>

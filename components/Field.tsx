@@ -1,5 +1,4 @@
 import { OutlinedInput, InputLabel, InputAdornment, SvgIcon} from '@mui/material'; 
-// import CalIcon from '../assets/images/calendar.svg';
 import { useFormContext } from 'react-hook-form';
 import { CalendarIcon } from './CalendarIcon';
 
