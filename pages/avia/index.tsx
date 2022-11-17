@@ -28,7 +28,7 @@ export default function Avia( ) {
 	return (
 		<Container>
 			<FormProvider {...methods}>
-				<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+				<form className={styles.form} onSubmit={handleSubmit(onSubmit)} onChange={()=> console.log(isValid)}>
 					<div className={styles.row}>
 						<Field
 							type="text"

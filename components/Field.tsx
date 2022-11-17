@@ -1,6 +1,7 @@
 import { OutlinedInput, InputLabel, InputAdornment, SvgIcon} from '@mui/material'; 
-import CalIcon from '../assets/images/calendar.svg';
+// import CalIcon from '../assets/images/calendar.svg';
 import { useFormContext } from 'react-hook-form';
+import { CalendarIcon } from './CalendarIcon';
 
 interface FieldProps {
 	label: string;
@@ -10,7 +11,7 @@ interface FieldProps {
 };
 
 export const Field = (props: FieldProps) => {
-	const { label, placeholder, type } = props;
+	const { label, placeholder, type, name } = props;
 	const { register } = useFormContext();
 
 	return (
@@ -25,8 +26,18 @@ export const Field = (props: FieldProps) => {
 				width: '208px',
 				"&.Mui-focused": {
 					color: "#5C87DB",
+				},
+				overflow: 'visible',
+				'&::after': {
+					content: name=='start' ? '" "' : null,
+					position: 'absolute',
+					right: '-100px',
+					top: '60%',
+					width: '100px',
+					height: '1px',
+					borderBottom: '1px dashed #FFFFFF',
+					zIndex: 2,
 				}
-				
 			}}>
 			{label}
 			<OutlinedInput
@@ -36,46 +47,60 @@ export const Field = (props: FieldProps) => {
 				sx={{
 					backgroundColor: '#FFFFFF',
 					display: 'block',
-					height: '40px',
 					fontWeight: 700,
 					fontSize: '14px',
 					lineHeight: '16px',
 					borderColor: "#B7BAC1",
 					borderRadius: '10px',
 					color: '#5C5C5C',
+					zIndex: 3,
 					"&:hover fieldset.MuiOutlinedInput-notchedOutline": {
 						borderColor: "#3E67B7",
 					},
-					"&:focus": {
+					"&.Mui-focused": {
 						borderColor: "#5C87DB",
-						'input': {
-							'&::-webkit-calendar-picker-indicator': {
-								filter: 'filter: invert(56%) sepia(13%) saturate(4834%) hue-rotate(197deg) brightness(91%) contrast(87%)',
-							},
+						'.MuiSvgIcon-root path': {
+								fill: '#5C87DB',
 						}
 					},
+					'.MuiSvgIcon-root path': {
+						fill: '#C5C5C5'
+					},
 					'& input': {
+						display: 'flex',
 						flexDirection: 'row-reverse',
 						padding: '12px',
+						marginLeft: type==='date' ? '-10px' : 0,
 						// icon
 						'&::-webkit-calendar-picker-indicator': {
-							opacity: 1,
-							backgroundImage: CalIcon,
-							backgroundSize: '100% 100%',
-							filter: 'invert(100%) sepia(0%) saturate(3644%) hue-rotate(78deg) brightness(72%) contrast(129%)',
+							opacity: 0,
 						},
-					},
-					'&:placeholder':{
-						color: '#3B7BAC1',
+						'&::placeholder, &::-webkit-input-placeholder': {
+							color:  '#B7BAC1',
+						},
+						'&::-webkit-datetime-edit-text': {
+							color: '#E0E1E3',
+						}
 					},
 					
+					
 				}}
-				id={props.name}
-				{...register(props.name, {
-					required: 'required field',
+				id={name}
+				{...register(name, {
+					required: name!=="end",
 				})}
-				// startAdornment={<InputAdornment position="start">{type==='date' ? <CalIcon /> : null }</InputAdornment>}
-			/>
+				startAdornment={
+					<InputAdornment
+						position="start"
+						sx={{position: 'absolute', top: '50%'}}>
+							{type==='date' 
+								? <CalendarIcon
+									inheritViewBox
+									sx={{ width: 16, height: 16}} /> 
+								: null
+							}
+					</InputAdornment>}
+			/>	
 		</InputLabel>
 	);
 }

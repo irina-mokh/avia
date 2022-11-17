@@ -5,7 +5,7 @@ import React from 'react';
 interface BtnProps {
 	children: React.ReactNode;
 	type?: "button" | "submit" | "reset";
-	disabled: boolean;
+	disabled?: boolean;
 }
 const ButtonStyled = styled(MUIButton)({
 	height: '40px',
